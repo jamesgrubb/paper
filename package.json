@@ -8,6 +8,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@georgedoescode/generative-utils": "^1.0.37",
     "matter-js": "^0.18.0",
     "next": "12.0.10",
     "paper": "^0.12.15",
