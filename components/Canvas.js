@@ -46,6 +46,22 @@ function Canvas(props) {
 			Engine.run(engine.current);
 			Render.run(render);
 			const balls = [];
+			for (let i = 0; i < 20; i++) {
+				balls.push(
+					Bodies.circle(Math.random() * cw, 0, 80, {
+						density: Math.random(),
+						friction: 0.01,
+						frictionAir: 0.00001,
+						restitution: 0.8,
+						render: {
+							fillStyle: '#F35e66',
+							strokeStyle: 'black',
+							lineWidth: 1,
+						},
+					})
+				);
+			}
+
 			var ball = Bodies.circle(0, 0, 20, {
 				density: 0.04,
 				friction: 0.01,
@@ -57,11 +73,26 @@ function Canvas(props) {
 					lineWidth: 1,
 				},
 			});
-			World.add(engine.current.world, [ball]);
+			for (let i = 0; i < balls.length; i++) {
+				World.add(engine.current.world, [balls[i]]);
+			}
+
 			console.log(ball);
 			const callback = () => {
 				paper.view.update();
 				paper.project.clear();
+				balls.forEach((ball) => {
+					let shape = new paper.Path.RegularPolygon({
+						position: new paper.Point([
+							ball.position.x,
+							ball.position.y,
+						]),
+						sides: 5,
+						radius: 100,
+						fillColor: 'tomato',
+					});
+					shape.rotate(ball.angle);
+				});
 				const shape = new paper.Path.RegularPolygon({
 					position: new paper.Point([
 						ball.position.x,
